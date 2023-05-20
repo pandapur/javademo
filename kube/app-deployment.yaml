@@ -16,4 +16,4 @@ spec:
       containers:
         - name: javademo
           image: ghcr.io/pandapur/javademo:main
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
