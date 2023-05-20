@@ -36,7 +36,7 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-    - name: Upload math result for job 1
+    - name: Upload result for job build
       uses: actions/upload-artifact@v3
       with:
         name: jarpackage
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Download math result for job 1
+    - name: Download result for job build
       uses: actions/download-artifact@v3
       with:
         name: jarpackage
@@ -55,12 +55,18 @@ jobs:
       run: docker build . --file Dockerfile --tag javademo/app:$(date +%s)
       
   build-and-push-image:
+    needs: docker
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
+      - uses: actions/checkout@v3
+      - name: Download result for job build
+        uses: actions/download-artifact@v3
+        with:
+          name: jarpackage
       - name: Checkout repository
         uses: actions/checkout@v3
 
