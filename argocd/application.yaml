@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: javademo-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/pandapur/javademo.git
+    targetRevision: HEAD
+    path: kube
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: javademo
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
