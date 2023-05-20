@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javademo
+  namespace: javademo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: javademo
+  template:
+    metadata:
+      labels:
+        app: javademo
+    spec:
+      containers:
+        - name: javademo
+          image: ghcr.io/pandapur/javademo:main
+          imagePullPolicy: "IfNotPresent"
